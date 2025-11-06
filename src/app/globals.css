@@ -1,54 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* =========================
    FUENTES GOOGLE
    ========================= */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 
 /* =========================
    VARIABLES GLOBALES
    ========================= */
-:root {
-  /* Fondo y UI */
-  --color-primary: #FFFFFF;
-  --color-secondary: #276A7C;
-  --color-accent: #67BACD;
-  --color-highlight: #70EAF0;
-  --color-tertiary: #5EACBB;
 
-  /* Texto */
-  --color-black: #000000;
-  --color-gray-dark: #333333;
-  --color-gray-light: rgba(245, 245, 245, 0.9);
-  --color-gray-medium: #C0C0C0;
-  --color-white: #FFFFFF;
-
-  /* Alertas y notificaciones */
-  --color-error: rgba(255, 107, 107, 0.9);
-  --color-warning: rgba(255, 209, 102, 0.9);
-  --color-success: rgba(6, 214, 160, 0.9);
-  --color-info: rgba(17, 138, 178, 0.9);
-  --color-notice: rgba(142, 202, 230, 0.9);
-
-  /* Estadísticas / gráficas */
-  --color-chart-blue: #276A7C;
-  --color-chart-turquoise: #67BACD;
-  --color-chart-cyan: #70EAF0;
-  --color-chart-teal: #5EACBB;
-  --color-chart-yellow: #FFD166;
-  --color-chart-red: #FF6B6B;
-  --color-chart-green: #06D6A0;
-  --color-chart-purple: #9D4EDD;
-
-  /* Glow y animaciones */
-  --color-glow: #70EAF0;
-
-  /* Sombras */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 15px 35px rgba(0, 0, 0, 0.15);
-  --shadow-glow: 0 0 20px rgba(112, 234, 240, 0.4);
-}
 
 /* =========================
    RESET Y BASE
@@ -1128,4 +1091,1011 @@ textarea::placeholder {
   box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
 }
 
+}
+/* ============================================
+   TRIX ANALYTICS - CSS PREMIUM FUTURISTA
+   ============================================ */
+
+/* Variables CSS para consistencia */
+:root {
+  --color-cyan-primary: #06b6d4;
+  --color-blue-primary: #3b82f6;
+  --color-purple-primary: #a855f7;
+  --color-emerald-primary: #10b981;
+  --color-amber-primary: #f59e0b;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  
+  --shadow-glow-cyan: 0 0 30px rgba(6, 182, 212, 0.3);
+  --shadow-glow-blue: 0 0 30px rgba(59, 130, 246, 0.3);
+  --shadow-glow-purple: 0 0 30px rgba(168, 85, 247, 0.3);
+  
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ============================================
+   ANIMACIONES PERSONALIZADAS
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes rotate-360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ping-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+/* ============================================
+   FONDO PRINCIPAL CON PARTÍCULAS
+   ============================================ */
+
+.dashboard-background {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    #0f172a 0%, 
+    #1e3a5f 25%, 
+    #0e4c6d 50%, 
+    #134e4a 75%, 
+    #0f172a 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.dashboard-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Efecto de cuadrícula futurista */
+.dashboard-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   HEADER MEJORADO
+   ============================================ */
+
+.header-premium {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(6, 182, 212, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.header-logo {
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+
+.header-logo::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  background: linear-gradient(45deg, #06b6d4, #3b82f6, #a855f7, #06b6d4);
+  background-size: 300% 300%;
+  animation: gradient-shift 3s ease infinite;
+  border-radius: 1rem;
+  opacity: 0.3;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+/* ============================================
+   TARJETAS KPI PREMIUM
+   ============================================ */
+
+.kpi-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  animation: fadeInScale 0.6s ease-out backwards;
+}
+
+.kpi-card:nth-child(1) { animation-delay: 0.1s; }
+.kpi-card:nth-child(2) { animation-delay: 0.2s; }
+.kpi-card:nth-child(3) { animation-delay: 0.3s; }
+.kpi-card:nth-child(4) { animation-delay: 0.4s; }
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.kpi-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(6, 182, 212, 0.3),
+    inset 0 0 20px rgba(6, 182, 212, 0.1);
+}
+
+.kpi-card:hover::before {
+  left: 100%;
+}
+
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #06b6d4, #3b82f6, #a855f7);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.kpi-card:hover::after {
+  opacity: 1;
+}
+
+/* Iconos de KPI con brillo */
+.kpi-icon {
+  position: relative;
+  display: inline-flex;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  transition: var(--transition-bounce);
+}
+
+.kpi-card:hover .kpi-icon {
+  transform: rotate(360deg) scale(1.1);
+  filter: drop-shadow(0 0 15px currentColor);
+}
+
+/* ============================================
+   PANEL DE IA FUTURISTA
+   ============================================ */
+
+.ai-panel {
+  position: relative;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(25px);
+  border-radius: 2rem;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  padding: 2rem;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(6, 182, 212, 0.2),
+    inset 0 0 30px rgba(6, 182, 212, 0.05);
+  animation: slideInUp 0.8s ease-out 0.3s backwards;
+}
+
+.ai-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.ai-panel::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  animation: pulse-glow 4s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Botones de análisis IA */
+.ai-button {
+  position: relative;
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ai-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.ai-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+.ai-button:hover::before {
+  opacity: 1;
+}
+
+.ai-button:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* ============================================
+   CHAT IA MEJORADO
+   ============================================ */
+
+.chat-container {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(15px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(6, 182, 212, 0.05);
+}
+
+.chat-message-user {
+  background: linear-gradient(135deg, #0891b2, #2563eb);
+  border-radius: 1.5rem 1.5rem 0.25rem 1.5rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+  animation: slideInRight 0.4s ease-out;
+}
+
+.chat-message-ai {
+  background: rgba(51, 65, 85, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem 1.5rem 1.5rem 0.25rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: slideInRight 0.4s ease-out;
+}
+
+.chat-input {
+  background: rgba(51, 65, 85, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  color: white;
+  transition: var(--transition-smooth);
+  font-weight: 500;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 
+    0 0 0 3px rgba(6, 182, 212, 0.1),
+    0 0 20px rgba(6, 182, 212, 0.3);
+  background: rgba(51, 65, 85, 0.7);
+}
+
+.chat-send-button {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+}
+
+.chat-send-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0891b2, #2563eb);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 25px rgba(6, 182, 212, 0.6);
+}
+
+.chat-send-button:active:not(:disabled) {
+  transform: translateY(0) scale(1);
+}
+
+/* ============================================
+   RESPUESTAS DE IA VISUALIZADAS
+   ============================================ */
+
+.ai-response-card {
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  border: 2px solid;
+  transition: var(--transition-smooth);
+  animation: fadeInScale 0.5s ease-out;
+}
+
+.ai-response-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ai-response-primary {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.ai-response-success {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1));
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.ai-response-warning {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.ai-response-info {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.1));
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* ============================================
+   TARJETAS DE DATOS
+   ============================================ */
+
+.data-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(15px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-smooth);
+  animation: slideInUp 0.6s ease-out backwards;
+}
+
+.data-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(6, 182, 212, 0.2);
+}
+
+.data-card-header {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+  border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+  padding: 1.5rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.data-item {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.data-item:hover {
+  transform: translateX(5px) scale(1.02);
+  border-color: rgba(6, 182, 212, 0.4);
+  background: rgba(30, 41, 59, 0.7);
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(6, 182, 212, 0.15);
+}
+
+/* ============================================
+   BOTONES Y ENLACES
+   ============================================ */
+
+.btn-primary {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6, #a855f7);
+  background-size: 200% 200%;
+  border-radius: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.btn-primary:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 25px rgba(6, 182, 212, 0.6);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(1);
+}
+
+.quick-access-link {
+  position: relative;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  padding: 1.5rem;
+  transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.quick-access-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.quick-access-link:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+.quick-access-link:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   SCROLLBAR PERSONALIZADO
+   ============================================ */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(51, 65, 85, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #06b6d4, #3b82f6);
+  border-radius: 10px;
+  border: 2px solid rgba(15, 23, 42, 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #0891b2, #2563eb);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #06b6d4 rgba(51, 65, 85, 0.3);
+}
+
+/* ============================================
+   EFECTOS DE CARGA
+   ============================================ */
+
+.loading-spinner {
+  border: 4px solid rgba(6, 182, 212, 0.2);
+  border-top: 4px solid #06b6d4;
+  border-radius: 50%;
+  animation: rotate-360 1s linear infinite;
+}
+
+.loading-overlay {
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95), 
+    rgba(30, 58, 95, 0.95), 
+    rgba(14, 76, 109, 0.95)
+  );
+  backdrop-filter: blur(10px);
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(51, 65, 85, 0.3) 25%,
+    rgba(71, 85, 105, 0.5) 50%,
+    rgba(51, 65, 85, 0.3) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+/* ============================================
+   TOOLTIPS Y POPUPS
+   ============================================ */
+
+.tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: var(--transition-smooth);
+}
+
+.tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   BADGES Y ETIQUETAS
+   ============================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.badge-success {
+  background: linear-gradient(135deg, #10b981, #14b8a6);
+  color: white;
+}
+
+.badge-warning {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: white;
+}
+
+.badge-info {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  color: white;
+}
+
+.badge-pulse {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ============================================
+   EFECTOS DE TEXTO
+   ============================================ */
+
+.text-gradient {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6, #a855f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px currentColor;
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #fff 0%,
+    #06b6d4 50%,
+    #fff 100%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .kpi-card {
+    padding: 1rem;
+  }
+  
+  .ai-panel {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+  }
+  
+  .data-card-header {
+    padding: 1rem;
+  }
+  
+  .quick-access-link {
+    padding: 1rem;
+  }
+}
+
+/* ============================================
+   ESTADOS DE INTERACCIÓN
+   ============================================ */
+
+.interactive-element {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.interactive-element:active {
+  transform: scale(0.98);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============================================
+   ACCESIBILIDAD
+   ============================================ */
+
+.focus-visible:focus {
+  outline: 2px solid #06b6d4;
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   UTILIDADES ADICIONALES
+   ============================================ */
+
+.backdrop-blur-strong {
+  backdrop-filter: blur(25px) saturate(180%);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shadow-glow-cyan {
+  box-shadow: var(--shadow-glow-cyan);
+}
+
+.shadow-glow-blue {
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.shadow-glow-purple {
+  box-shadow: var(--shadow-glow-purple);
+}
+
+/* ============================================
+   MODO DE ALTO CONTRASTE
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  .kpi-card,
+  .ai-panel,
+  .data-card {
+    border-width: 2px;
+  }
+  
+  .btn-primary {
+    border: 2px solid white;
+  }
+}
+/* Header principal */
+header {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(6, 214, 160, 0.2); /* cyan-500/20 */
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 10px 50px rgba(6, 214, 160, 0.1);
+}
+
+/* Container interno */
+header .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo futurista */
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+header .logo .icon-wrapper {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(to bottom right, #00d4ff, #3b82f6, #9b5de5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+  animation: pulse 2s infinite;
+}
+
+header .logo .status-indicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  background: #06d6a0; /* verde */
+  border: 2px solid black;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+/* Texto del logo */
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(to right, #00d4ff, #3b82f6, #9b5de5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header p.subtitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #67bacd; /* cyan-300 */
+}
+
+/* Botones */
+header .btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+header .btn-refresh {
+  background: linear-gradient(to right, #00d4ff, #3b82f6, #9b5de5);
+  color: white;
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+}
+
+header .btn-refresh:hover {
+  background: linear-gradient(to right, #00bcd4, #2563eb, #7b2cbf);
+  box-shadow: 0 12px 35px rgba(0, 212, 255, 0.5);
+  transform: scale(1.05);
+}
+
+/* Perfil usuario */
+header .profile {
+  position: relative;
+}
+
+header .profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: linear-gradient(to bottom right, #1e293b, #0f172a);
+  border: 1px solid rgba(6, 214, 160, 0.3);
+  box-shadow: 0 8px 25px rgba(6, 214, 160, 0.2);
+  transition: all 0.3s ease;
+}
+
+header .profile-btn:hover {
+  background: linear-gradient(to bottom right, #334155, #1e293b);
+}
+
+header .dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  width: 16rem;
+  background: linear-gradient(to bottom right, #1e293b, #0f172a);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(6, 214, 160, 0.3);
+  border: 1px solid rgba(6, 214, 160, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+header .profile:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+}
+
+header .dropdown .user-info {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(6, 214, 160, 0.3);
+}
+
+header .dropdown .user-info p {
+  margin: 0;
+  color: white;
+}
+
+header .dropdown .role-badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #00d4ff, #3b82f6);
+  color: white;
+}
+
+header .dropdown button.logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: #ff6b6b;
+  background: transparent;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+header .dropdown button.logout:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 0 0 16px 16px;
+}
+
+/* Animación pulse */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
 }

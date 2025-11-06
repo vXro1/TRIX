@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { 
   Package, Plus, Search, Filter, Edit2, Trash2, 
   AlertTriangle, TrendingUp, DollarSign, X, Save,
-  ChevronLeft, RefreshCw, Eye, ShoppingBag, BarChart3
+  ChevronLeft, RefreshCw, Eye, ShoppingBag, BarChart3,
+  Sparkles, Zap, Award, TrendingDown
 } from 'lucide-react';
+
 const API_BASE_URL = 'https://backend-hackathon-t4q9.onrender.com/api';
 
 const GestionProductos = () => {
@@ -217,125 +219,619 @@ const GestionProductos = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-        <div className="text-center">
-          <RefreshCw className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
-          <p className="text-slate-600 text-lg">Cargando productos...</p>
+      <div style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: '80px',
+            height: '80px',
+            margin: '0 auto 30px',
+            position: 'relative'
+          }}>
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              border: '4px solid #70EAF0',
+              borderRadius: '50%',
+              borderTopColor: 'transparent',
+              animation: 'spin 1s linear infinite'
+            }} />
+            <style>{`
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+            `}</style>
+          </div>
+          <p style={{
+            fontSize: '24px',
+            fontWeight: '600',
+            color: '#276A7C',
+            marginBottom: '10px'
+          }}>Cargando Productos</p>
+          <p style={{ color: '#67BACD', fontSize: '14px' }}>Sincronizando inventario...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div style={{
+      minHeight: '100vh',
+      background: '#FFFFFF',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Efectos de fondo decorativos */}
+      <div style={{
+        position: 'fixed',
+        top: '-50%',
+        right: '-10%',
+        width: '800px',
+        height: '800px',
+        background: 'radial-gradient(circle, rgba(112, 234, 240, 0.08) 0%, transparent 70%)',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+        zIndex: 0
+      }} />
+      <div style={{
+        position: 'fixed',
+        bottom: '-30%',
+        left: '-10%',
+        width: '600px',
+        height: '600px',
+        background: 'radial-gradient(circle, rgba(103, 186, 205, 0.06) 0%, transparent 70%)',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+        zIndex: 0
+      }} />
+
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+      <header style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(39, 106, 124, 0.1)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 40,
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '20px 30px'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '20px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
               <button
                 onClick={() => window.history.back()}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                style={{
+                  padding: '12px',
+                  background: 'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)',
+                  border: 'none',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #67BACD 0%, #276A7C 100%)';
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft style={{ width: '24px', height: '24px', color: '#276A7C' }} />
               </button>
+              
               <div>
-                <h1 className="text-2xl font-bold text-slate-900">Gestión de Productos</h1>
-                <p className="text-slate-600 text-sm mt-1">{estadisticas.activos} productos activos</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    background: 'linear-gradient(135deg, #70EAF0 0%, #67BACD 100%)',
+                    borderRadius: '15px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 8px 25px rgba(112, 234, 240, 0.3)'
+                  }}>
+                    <Package style={{ width: '28px', height: '28px', color: '#FFFFFF' }} />
+                  </div>
+                  <h1 style={{
+                    fontSize: '32px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    margin: 0,
+                    letterSpacing: '-0.5px'
+                  }}>
+                    Gestión de Productos
+                  </h1>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginLeft: '62px' }}>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 14px',
+                    background: 'linear-gradient(135deg, rgba(112, 234, 240, 0.15) 0%, rgba(103, 186, 205, 0.15) 100%)',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(112, 234, 240, 0.3)'
+                  }}>
+                    <Sparkles style={{ width: '14px', height: '14px', color: '#67BACD' }} />
+                    <span style={{ fontSize: '13px', fontWeight: '600', color: '#276A7C' }}>
+                      {estadisticas.activos} productos activos
+                    </span>
+                  </div>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 14px',
+                    background: 'linear-gradient(135deg, rgba(6, 214, 160, 0.15) 0%, rgba(6, 214, 160, 0.1) 100%)',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(6, 214, 160, 0.3)'
+                  }}>
+                    <Award style={{ width: '14px', height: '14px', color: '#06D6A0' }} />
+                    <span style={{ fontSize: '13px', fontWeight: '600', color: '#06D6A0' }}>
+                      Sistema en línea
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
             
-            <div className="flex items-center gap-3">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <button
                 onClick={cargarProductos}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '14px 24px',
+                  background: 'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)',
+                  border: '1px solid rgba(39, 106, 124, 0.2)',
+                  borderRadius: '14px',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: '#276A7C',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #67BACD 0%, #5EACBB 100%)';
+                  e.currentTarget.style.color = '#FFFFFF';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(103, 186, 205, 0.3)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)';
+                  e.currentTarget.style.color = '#276A7C';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               >
-                <RefreshCw className="w-4 h-4" />
-                <span className="hidden sm:inline">Actualizar</span>
+                <RefreshCw style={{ width: '18px', height: '18px' }} />
+                <span>Actualizar</span>
               </button>
               
               <button
                 onClick={abrirModalCrear}
-                className="button-primary flex items-center gap-2"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '14px 28px',
+                  background: 'linear-gradient(135deg, #70EAF0 0%, #67BACD 100%)',
+                  border: 'none',
+                  borderRadius: '14px',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: '#FFFFFF',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 8px 25px rgba(112, 234, 240, 0.4)'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 12px 35px rgba(112, 234, 240, 0.5)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(112, 234, 240, 0.4)';
+                }}
               >
-                <Plus className="w-5 h-5" />
-                Nuevo Producto
+                <Plus style={{ width: '20px', height: '20px' }} />
+                <span>Nuevo Producto</span>
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+      <div style={{
+        maxWidth: '1400px',
+        margin: '0 auto',
+        padding: '40px 30px',
+        position: 'relative',
+        zIndex: 1
+      }}>
         {/* Estadísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <div className="glass-card">
-            <div className="flex items-center justify-between">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '24px',
+          marginBottom: '40px'
+        }}>
+          {/* Total Productos */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 245, 0.8) 100%)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '24px',
+            padding: '28px',
+            border: '1px solid rgba(39, 106, 124, 0.1)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+            transition: 'all 0.4s ease',
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-8px)';
+            e.currentTarget.style.boxShadow = '0 16px 48px rgba(39, 106, 124, 0.15)';
+            e.currentTarget.style.borderColor = '#70EAF0';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.06)';
+            e.currentTarget.style.borderColor = 'rgba(39, 106, 124, 0.1)';
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              right: '-20%',
+              width: '200px',
+              height: '200px',
+              background: 'radial-gradient(circle, rgba(103, 186, 205, 0.1) 0%, transparent 70%)',
+              borderRadius: '50%'
+            }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
               <div>
-                <p className="text-sm text-slate-600 font-medium">Total Productos</p>
-                <p className="text-3xl font-bold text-slate-900 mt-1">{estadisticas.total}</p>
+                <p style={{ fontSize: '13px', fontWeight: '600', color: '#67BACD', margin: '0 0 12px 0', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  Total Productos
+                </p>
+                <p style={{ fontSize: '48px', fontWeight: '700', color: '#276A7C', margin: '0', lineHeight: '1' }}>
+                  {estadisticas.total}
+                </p>
+                <div style={{ 
+                  marginTop: '12px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '6px',
+                  padding: '4px 10px',
+                  background: 'rgba(103, 186, 205, 0.1)',
+                  borderRadius: '8px',
+                  width: 'fit-content'
+                }}>
+                  <TrendingUp style={{ width: '14px', height: '14px', color: '#06D6A0' }} />
+                  <span style={{ fontSize: '12px', fontWeight: '600', color: '#06D6A0' }}>En inventario</span>
+                </div>
               </div>
-              <div className="p-3 bg-blue-100 rounded-xl">
-                <Package className="w-8 h-8 text-blue-600" />
+              <div style={{
+                width: '70px',
+                height: '70px',
+                background: 'linear-gradient(135deg, #67BACD 0%, #276A7C 100%)',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 8px 25px rgba(103, 186, 205, 0.4)'
+              }}>
+                <Package style={{ width: '36px', height: '36px', color: '#FFFFFF' }} />
               </div>
             </div>
           </div>
 
-          <div className="glass-card">
-            <div className="flex items-center justify-between">
+          {/* Stock Bajo */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 245, 235, 0.8) 100%)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '24px',
+            padding: '28px',
+            border: '1px solid rgba(255, 209, 102, 0.2)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+            transition: 'all 0.4s ease',
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-8px)';
+            e.currentTarget.style.boxShadow = '0 16px 48px rgba(255, 209, 102, 0.25)';
+            e.currentTarget.style.borderColor = '#FFD166';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.06)';
+            e.currentTarget.style.borderColor = 'rgba(255, 209, 102, 0.2)';
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              right: '-20%',
+              width: '200px',
+              height: '200px',
+              background: 'radial-gradient(circle, rgba(255, 209, 102, 0.15) 0%, transparent 70%)',
+              borderRadius: '50%'
+            }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
               <div>
-                <p className="text-sm text-slate-600 font-medium">Stock Bajo</p>
-                <p className="text-3xl font-bold text-amber-600 mt-1">{estadisticas.stockBajo}</p>
+                <p style={{ fontSize: '13px', fontWeight: '600', color: '#FFD166', margin: '0 0 12px 0', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  Stock Bajo
+                </p>
+                <p style={{ fontSize: '48px', fontWeight: '700', color: '#D4A747', margin: '0', lineHeight: '1' }}>
+                  {estadisticas.stockBajo}
+                </p>
+                <div style={{ 
+                  marginTop: '12px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '6px',
+                  padding: '4px 10px',
+                  background: 'rgba(255, 209, 102, 0.15)',
+                  borderRadius: '8px',
+                  width: 'fit-content'
+                }}>
+                  <AlertTriangle style={{ width: '14px', height: '14px', color: '#D4A747' }} />
+                  <span style={{ fontSize: '12px', fontWeight: '600', color: '#D4A747' }}>Requiere atención</span>
+                </div>
               </div>
-              <div className="p-3 bg-amber-100 rounded-xl">
-                <AlertTriangle className="w-8 h-8 text-amber-600" />
+              <div style={{
+                width: '70px',
+                height: '70px',
+                background: 'linear-gradient(135deg, #FFD166 0%, #D4A747 100%)',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 8px 25px rgba(255, 209, 102, 0.4)'
+              }}>
+                <AlertTriangle style={{ width: '36px', height: '36px', color: '#FFFFFF' }} />
               </div>
             </div>
           </div>
 
-          <div className="glass-card">
-            <div className="flex items-center justify-between">
+          {/* Valor Total */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(235, 255, 245, 0.8) 100%)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '24px',
+            padding: '28px',
+            border: '1px solid rgba(6, 214, 160, 0.2)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+            transition: 'all 0.4s ease',
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-8px)';
+            e.currentTarget.style.boxShadow = '0 16px 48px rgba(6, 214, 160, 0.25)';
+            e.currentTarget.style.borderColor = '#06D6A0';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.06)';
+            e.currentTarget.style.borderColor = 'rgba(6, 214, 160, 0.2)';
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              right: '-20%',
+              width: '200px',
+              height: '200px',
+              background: 'radial-gradient(circle, rgba(6, 214, 160, 0.12) 0%, transparent 70%)',
+              borderRadius: '50%'
+            }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
               <div>
-                <p className="text-sm text-slate-600 font-medium">Valor Total</p>
-                <p className="text-2xl font-bold text-green-600 mt-1">{formatCurrency(estadisticas.valorTotal)}</p>
+                <p style={{ fontSize: '13px', fontWeight: '600', color: '#06D6A0', margin: '0 0 12px 0', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  Valor Total
+                </p>
+                <p style={{ fontSize: '32px', fontWeight: '700', color: '#05B589', margin: '0', lineHeight: '1' }}>
+                  {formatCurrency(estadisticas.valorTotal)}
+                </p>
+                <div style={{ 
+                  marginTop: '12px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '6px',
+                  padding: '4px 10px',
+                  background: 'rgba(6, 214, 160, 0.12)',
+                  borderRadius: '8px',
+                  width: 'fit-content'
+                }}>
+                  <Zap style={{ width: '14px', height: '14px', color: '#06D6A0' }} />
+                  <span style={{ fontSize: '12px', fontWeight: '600', color: '#06D6A0' }}>Activo en sistema</span>
+                </div>
               </div>
-              <div className="p-3 bg-green-100 rounded-xl">
-                <DollarSign className="w-8 h-8 text-green-600" />
+              <div style={{
+                width: '70px',
+                height: '70px',
+                background: 'linear-gradient(135deg, #06D6A0 0%, #05B589 100%)',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 8px 25px rgba(6, 214, 160, 0.4)'
+              }}>
+                <DollarSign style={{ width: '36px', height: '36px', color: '#FFFFFF' }} />
               </div>
             </div>
           </div>
 
-          <div className="glass-card">
-            <div className="flex items-center justify-between">
+          {/* Productos Activos */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 240, 255, 0.8) 100%)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '24px',
+            padding: '28px',
+            border: '1px solid rgba(157, 78, 221, 0.2)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+            transition: 'all 0.4s ease',
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'translateY(-8px)';
+            e.currentTarget.style.boxShadow = '0 16px 48px rgba(157, 78, 221, 0.25)';
+            e.currentTarget.style.borderColor = '#9D4EDD';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.06)';
+            e.currentTarget.style.borderColor = 'rgba(157, 78, 221, 0.2)';
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              right: '-20%',
+              width: '200px',
+              height: '200px',
+              background: 'radial-gradient(circle, rgba(157, 78, 221, 0.12) 0%, transparent 70%)',
+              borderRadius: '50%'
+            }} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
               <div>
-                <p className="text-sm text-slate-600 font-medium">Productos Activos</p>
-                <p className="text-3xl font-bold text-purple-600 mt-1">{estadisticas.activos}</p>
+                <p style={{ fontSize: '13px', fontWeight: '600', color: '#9D4EDD', margin: '0 0 12px 0', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  Productos Activos
+                </p>
+                <p style={{ fontSize: '48px', fontWeight: '700', color: '#7D3EBD', margin: '0', lineHeight: '1' }}>
+                  {estadisticas.activos}
+                </p>
+                <div style={{ 
+                  marginTop: '12px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '6px',
+                  padding: '4px 10px',
+                  background: 'rgba(157, 78, 221, 0.12)',
+                  borderRadius: '8px',
+                  width: 'fit-content'
+                }}>
+                  <TrendingUp style={{ width: '14px', height: '14px', color: '#9D4EDD' }} />
+                  <span style={{ fontSize: '12px', fontWeight: '600', color: '#9D4EDD' }}>Disponibles</span>
+                </div>
               </div>
-              <div className="p-3 bg-purple-100 rounded-xl">
-                <TrendingUp className="w-8 h-8 text-purple-600" />
+              <div style={{
+                width: '70px',
+                height: '70px',
+                background: 'linear-gradient(135deg, #9D4EDD 0%, #7D3EBD 100%)',
+                borderRadius: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 8px 25px rgba(157, 78, 221, 0.4)'
+              }}>
+                <TrendingUp style={{ width: '36px', height: '36px', color: '#FFFFFF' }} />
               </div>
             </div>
           </div>
         </div>
 
         {/* Filtros y Búsqueda */}
-        <div className="glass-card mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.9) 100%)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: '24px',
+          padding: '32px',
+          marginBottom: '32px',
+          border: '1px solid rgba(39, 106, 124, 0.1)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)'
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '20px'
+          }}>
+            <div style={{ position: 'relative' }}>
+              <div style={{
+                position: 'absolute',
+                left: '18px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                pointerEvents: 'none',
+                zIndex: 2
+              }}>
+                <Search style={{ width: '20px', height: '20px', color: '#67BACD' }} />
+              </div>
               <input
                 type="text"
                 placeholder="Buscar por nombre o código..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                style={{
+                  width: '100%',
+                  padding: '16px 20px 16px 50px',
+                  border: '2px solid rgba(103, 186, 205, 0.2)',
+                  borderRadius: '16px',
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  color: '#276A7C',
+                  background: 'rgba(255, 255, 255, 0.8)',
+                  transition: 'all 0.3s ease',
+                  outline: 'none'
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = '#70EAF0';
+                  e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.1)';
+                  e.target.style.background = '#FFFFFF';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                  e.target.style.boxShadow = 'none';
+                  e.target.style.background = 'rgba(255, 255, 255, 0.8)';
+                }}
               />
             </div>
 
             <select
               value={filtroCategoria}
               onChange={(e) => setFiltroCategoria(e.target.value)}
-              className="px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              style={{
+                padding: '16px 20px',
+                border: '2px solid rgba(103, 186, 205, 0.2)',
+                borderRadius: '16px',
+                fontSize: '15px',
+                fontWeight: '500',
+                color: '#276A7C',
+                background: 'rgba(255, 255, 255, 0.8)',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                outline: 'none'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#70EAF0';
+                e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                e.target.style.boxShadow = 'none';
+              }}
             >
               <option value="">Todas las Categorías</option>
               {categorias.map(cat => (
@@ -346,7 +842,26 @@ const GestionProductos = () => {
             <select
               value={filtroGenero}
               onChange={(e) => setFiltroGenero(e.target.value)}
-              className="px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              style={{
+                padding: '16px 20px',
+                border: '2px solid rgba(103, 186, 205, 0.2)',
+                borderRadius: '16px',
+                fontSize: '15px',
+                fontWeight: '500',
+                color: '#276A7C',
+                background: 'rgba(255, 255, 255, 0.8)',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                outline: 'none'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#70EAF0';
+                e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                e.target.style.boxShadow = 'none';
+              }}
             >
               <option value="">Todos los Géneros</option>
               {generos.map(gen => (
@@ -357,78 +872,286 @@ const GestionProductos = () => {
         </div>
 
         {/* Tabla de Productos */}
-        <div className="glass-card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-50 border-b border-slate-200">
-                <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Código</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Producto</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Categoría</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Talla</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Stock</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Precio</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-slate-700 uppercase">Acciones</th>
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.9) 100%)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: '24px',
+          overflow: 'hidden',
+          border: '1px solid rgba(39, 106, 124, 0.1)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)'
+        }}>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{
+                  background: 'linear-gradient(135deg, rgba(112, 234, 240, 0.08) 0%, rgba(103, 186, 205, 0.08) 100%)',
+                  borderBottom: '2px solid rgba(39, 106, 124, 0.1)'
+                }}>
+                  <th style={{
+                    padding: '20px 24px',
+                    textAlign: 'left',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    letterSpacing: '1.2px',
+                    textTransform: 'uppercase'
+                  }}>Código</th>
+                  <th style={{
+                    padding: '20px 24px',
+                    textAlign: 'left',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    letterSpacing: '1.2px',
+                    textTransform: 'uppercase'
+                  }}>Producto</th>
+                  <th style={{
+                    padding: '20px 24px',
+                    textAlign: 'left',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    letterSpacing: '1.2px',
+                    textTransform: 'uppercase'
+                  }}>Categoría</th>
+                  <th style={{
+                    padding: '20px 24px',
+                    textAlign: 'left',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    letterSpacing: '1.2px',
+                    textTransform: 'uppercase'
+                  }}>Talla</th>
+                  <th style={{
+                    padding: '20px 24px',
+                    textAlign: 'left',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    letterSpacing: '1.2px',
+                    textTransform: 'uppercase'
+                  }}>Stock</th>
+                  <th style={{
+                    padding: '20px 24px',
+                    textAlign: 'left',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    letterSpacing: '1.2px',
+                    textTransform: 'uppercase'
+                  }}>Precio</th>
+                  <th style={{
+                    padding: '20px 24px',
+                    textAlign: 'center',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    letterSpacing: '1.2px',
+                    textTransform: 'uppercase'
+                  }}>Acciones</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200">
-                {productosFiltrados.map((producto) => (
-                  <tr key={producto._id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3">
-                      <span className="font-mono text-sm font-semibold text-slate-900">{producto.codigo}</span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div>
-                        <p className="font-medium text-slate-900">{producto.nombre}</p>
-                        <p className="text-xs text-slate-500">{producto.genero}</p>
+              <tbody>
+                {productosFiltrados.map((producto, index) => (
+                  <tr key={producto._id} style={{
+                    borderBottom: '1px solid rgba(39, 106, 124, 0.05)',
+                    transition: 'all 0.3s ease',
+                    background: index % 2 === 0 ? 'rgba(255, 255, 255, 0.5)' : 'transparent'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = 'linear-gradient(90deg, rgba(112, 234, 240, 0.08) 0%, rgba(103, 186, 205, 0.05) 100%)';
+                    e.currentTarget.style.transform = 'scale(1.01)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = index % 2 === 0 ? 'rgba(255, 255, 255, 0.5)' : 'transparent';
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}>
+                    <td style={{ padding: '20px 24px' }}>
+                      <div style={{
+                        display: 'inline-block',
+                        padding: '8px 14px',
+                        background: 'linear-gradient(135deg, rgba(112, 234, 240, 0.15) 0%, rgba(103, 186, 205, 0.1) 100%)',
+                        borderRadius: '10px',
+                        border: '1px solid rgba(112, 234, 240, 0.3)'
+                      }}>
+                        <span style={{
+                          fontFamily: 'monospace',
+                          fontSize: '13px',
+                          fontWeight: '700',
+                          color: '#276A7C'
+                        }}>{producto.codigo}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3">
-                      <span className="text-sm text-slate-700">{producto.categoria}</span>
+                    <td style={{ padding: '20px 24px' }}>
+                      <div>
+                        <p style={{
+                          fontWeight: '600',
+                          color: '#000000',
+                          margin: '0 0 4px 0',
+                          fontSize: '15px'
+                        }}>{producto.nombre}</p>
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#67BACD',
+                          margin: 0,
+                          fontWeight: '500'
+                        }}>{producto.genero}</p>
+                      </div>
                     </td>
-                    <td className="px-4 py-3">
-                      <span className="inline-flex items-center px-2 py-1 rounded-md bg-slate-100 text-xs font-medium text-slate-700">
+                    <td style={{ padding: '20px 24px' }}>
+                      <span style={{
+                        fontSize: '14px',
+                        color: '#333333',
+                        fontWeight: '500'
+                      }}>{producto.categoria}</span>
+                    </td>
+                    <td style={{ padding: '20px 24px' }}>
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        padding: '6px 14px',
+                        borderRadius: '10px',
+                        background: 'linear-gradient(135deg, rgba(157, 78, 221, 0.12) 0%, rgba(157, 78, 221, 0.08) 100%)',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        color: '#7D3EBD',
+                        border: '1px solid rgba(157, 78, 221, 0.2)'
+                      }}>
                         {producto.talla}
                       </span>
                     </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className={`font-semibold ${producto.alertaStock ? 'text-amber-600' : 'text-green-600'}`}>
-                          {producto.stockActual}
-                        </span>
+                    <td style={{ padding: '20px 24px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          minWidth: '50px',
+                          padding: '8px 14px',
+                          borderRadius: '10px',
+                          background: producto.alertaStock 
+                            ? 'linear-gradient(135deg, rgba(255, 209, 102, 0.15) 0%, rgba(255, 209, 102, 0.1) 100%)'
+                            : 'linear-gradient(135deg, rgba(6, 214, 160, 0.15) 0%, rgba(6, 214, 160, 0.1) 100%)',
+                          border: producto.alertaStock 
+                            ? '1px solid rgba(255, 209, 102, 0.3)'
+                            : '1px solid rgba(6, 214, 160, 0.3)'
+                        }}>
+                          <span style={{
+                            fontWeight: '700',
+                            fontSize: '15px',
+                            color: producto.alertaStock ? '#D4A747' : '#06D6A0'
+                          }}>
+                            {producto.stockActual}
+                          </span>
+                        </div>
                         {producto.alertaStock && (
-                          <AlertTriangle className="w-4 h-4 text-amber-600" />
+                          <div style={{
+                            animation: 'pulse 2s ease-in-out infinite'
+                          }}>
+                            <AlertTriangle style={{ width: '18px', height: '18px', color: '#FFD166' }} />
+                          </div>
                         )}
                       </div>
                     </td>
-                    <td className="px-4 py-3">
-                      <p className="font-semibold text-slate-900">{formatCurrency(producto.precioVenta)}</p>
+                    <td style={{ padding: '20px 24px' }}>
+                      <p style={{
+                        fontWeight: '700',
+                        color: '#276A7C',
+                        margin: 0,
+                        fontSize: '16px'
+                      }}>{formatCurrency(producto.precioVenta)}</p>
                     </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center justify-center gap-2">
+                    <td style={{ padding: '20px 24px' }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px'
+                      }}>
                         <button
                           onClick={() => {
                             setProductoSeleccionado(producto);
                             setModalVer(true);
                           }}
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          style={{
+                            padding: '10px',
+                            background: 'linear-gradient(135deg, rgba(103, 186, 205, 0.12) 0%, rgba(103, 186, 205, 0.08) 100%)',
+                            border: '1px solid rgba(103, 186, 205, 0.3)',
+                            borderRadius: '12px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #67BACD 0%, #5EACBB 100%)';
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                            e.currentTarget.style.boxShadow = '0 4px 15px rgba(103, 186, 205, 0.4)';
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, rgba(103, 186, 205, 0.12) 0%, rgba(103, 186, 205, 0.08) 100%)';
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                           title="Ver detalles"
                         >
-                          <Eye className="w-4 h-4" />
+                          <Eye style={{ width: '18px', height: '18px', color: '#276A7C' }} />
                         </button>
                         <button
                           onClick={() => abrirModalEditar(producto)}
-                          className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                          style={{
+                            padding: '10px',
+                            background: 'linear-gradient(135deg, rgba(6, 214, 160, 0.12) 0%, rgba(6, 214, 160, 0.08) 100%)',
+                            border: '1px solid rgba(6, 214, 160, 0.3)',
+                            borderRadius: '12px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #06D6A0 0%, #05B589 100%)';
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                            e.currentTarget.style.boxShadow = '0 4px 15px rgba(6, 214, 160, 0.4)';
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, rgba(6, 214, 160, 0.12) 0%, rgba(6, 214, 160, 0.08) 100%)';
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                           title="Editar"
                         >
-                          <Edit2 className="w-4 h-4" />
+                          <Edit2 style={{ width: '18px', height: '18px', color: '#05B589' }} />
                         </button>
                         <button
                           onClick={() => eliminarProducto(producto._id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          style={{
+                            padding: '10px',
+                            background: 'linear-gradient(135deg, rgba(255, 107, 107, 0.12) 0%, rgba(255, 107, 107, 0.08) 100%)',
+                            border: '1px solid rgba(255, 107, 107, 0.3)',
+                            borderRadius: '12px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #FF6B6B 0%, #E85555 100%)';
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                            e.currentTarget.style.boxShadow = '0 4px 15px rgba(255, 107, 107, 0.4)';
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 107, 107, 0.12) 0%, rgba(255, 107, 107, 0.08) 100%)';
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                           title="Eliminar"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 style={{ width: '18px', height: '18px', color: '#E85555' }} />
                         </button>
                       </div>
                     </td>
@@ -438,77 +1161,309 @@ const GestionProductos = () => {
             </table>
 
             {productosFiltrados.length === 0 && (
-              <div className="text-center py-12">
-                <ShoppingBag className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-500 text-lg">No se encontraron productos</p>
+              <div style={{
+                textAlign: 'center',
+                padding: '80px 20px'
+              }}>
+                <div style={{
+                  width: '100px',
+                  height: '100px',
+                  margin: '0 auto 24px',
+                  background: 'linear-gradient(135deg, rgba(103, 186, 205, 0.1) 0%, rgba(112, 234, 240, 0.1) 100%)',
+                  borderRadius: '30px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <ShoppingBag style={{ width: '50px', height: '50px', color: '#67BACD' }} />
+                </div>
+                <p style={{
+                  fontSize: '24px',
+                  fontWeight: '600',
+                  color: '#276A7C',
+                  margin: '0 0 8px 0'
+                }}>No se encontraron productos</p>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#67BACD'
+                }}>Intenta ajustar los filtros de búsqueda</p>
               </div>
             )}
           </div>
         </div>
       </div>
 
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
+
       {/* Modal Crear/Editar */}
       {modalAbierto && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-slate-900">
-                {modoEdicion ? 'Editar Producto' : 'Nuevo Producto'}
-              </h2>
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(8px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 50,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%)',
+            borderRadius: '32px',
+            boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3)',
+            maxWidth: '900px',
+            width: '100%',
+            maxHeight: '90vh',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            border: '1px solid rgba(112, 234, 240, 0.2)'
+          }}>
+            <div style={{
+              background: 'linear-gradient(135deg, #70EAF0 0%, #67BACD 100%)',
+              padding: '28px 32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{
+                  width: '50px',
+                  height: '50px',
+                  background: 'rgba(255, 255, 255, 0.25)',
+                  borderRadius: '15px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {modoEdicion ? (
+                    <Edit2 style={{ width: '26px', height: '26px', color: '#FFFFFF' }} />
+                  ) : (
+                    <Plus style={{ width: '26px', height: '26px', color: '#FFFFFF' }} />
+                  )}
+                </div>
+                <h2 style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  color: '#FFFFFF',
+                  margin: 0
+                }}>
+                  {modoEdicion ? 'Editar Producto' : 'Nuevo Producto'}
+                </h2>
+              </div>
               <button
                 onClick={() => setModalAbierto(false)}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                style={{
+                  padding: '12px',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  border: 'none',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.currentTarget.style.transform = 'rotate(90deg)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.transform = 'rotate(0deg)';
+                }}
               >
-                <X className="w-6 h-6" />
+                <X style={{ width: '24px', height: '24px', color: '#FFFFFF' }} />
               </button>
             </div>
 
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div style={{
+              padding: '32px',
+              overflowY: 'auto',
+              flex: 1
+            }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '24px'
+              }}>
+                {/* Código */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Código *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Código *
+                  </label>
                   <input
                     type="text"
                     name="codigo"
                     value={formulario.codigo}
                     onChange={handleInputChange}
                     disabled={modoEdicion}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="Ej: PROD001"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: modoEdicion ? 'rgba(245, 245, 245, 0.5)' : 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none',
+                      cursor: modoEdicion ? 'not-allowed' : 'text'
+                    }}
+                    onFocus={(e) => {
+                      if (!modoEdicion) {
+                        e.target.style.borderColor = '#70EAF0';
+                        e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                      }
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
+                {/* Nombre */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Nombre *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Nombre *
+                  </label>
                   <input
                     type="text"
                     name="nombre"
                     value={formulario.nombre}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="Nombre del producto"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Descripción</label>
+                {/* Descripción - Col Span 2 */}
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Descripción
+                  </label>
                   <textarea
                     name="descripcion"
                     value={formulario.descripcion}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
-                    rows="2"
+                    rows="3"
                     placeholder="Descripción del producto"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none',
+                      resize: 'vertical',
+                      fontFamily: 'inherit'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
+                {/* Categoría */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Categoría *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Categoría *
+                  </label>
                   <select
                     name="categoria"
                     value={formulario.categoria}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none',
+                      cursor: 'pointer'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   >
                     <option value="">Seleccionar...</option>
                     {categorias.map(cat => (
@@ -517,13 +1472,44 @@ const GestionProductos = () => {
                   </select>
                 </div>
 
+                {/* Género */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Género *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Género *
+                  </label>
                   <select
                     name="genero"
                     value={formulario.genero}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none',
+                      cursor: 'pointer'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   >
                     <option value="">Seleccionar...</option>
                     {generos.map(gen => (
@@ -532,13 +1518,44 @@ const GestionProductos = () => {
                   </select>
                 </div>
 
+                {/* Talla */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Talla *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Talla *
+                  </label>
                   <select
                     name="talla"
                     value={formulario.talla}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none',
+                      cursor: 'pointer'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   >
                     <option value="">Seleccionar...</option>
                     {tallas.map(t => (
@@ -547,90 +1564,317 @@ const GestionProductos = () => {
                   </select>
                 </div>
 
+                {/* Color */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Color</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Color
+                  </label>
                   <input
                     type="text"
                     name="color"
                     value={formulario.color}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="Ej: Azul marino"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
+                {/* Precio Compra */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Precio Compra *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Precio Compra *
+                  </label>
                   <input
                     type="number"
                     name="precioCompra"
                     value={formulario.precioCompra}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="0"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
+                {/* Precio Venta */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Precio Venta *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Precio Venta *
+                  </label>
                   <input
                     type="number"
                     name="precioVenta"
                     value={formulario.precioVenta}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="0"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
+                {/* Stock Actual */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Stock Actual *</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Stock Actual *
+                  </label>
                   <input
                     type="number"
                     name="stockActual"
                     value={formulario.stockActual}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="0"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
+                {/* Stock Mínimo */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Stock Mínimo</label>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Stock Mínimo
+                  </label>
                   <input
                     type="number"
                     name="stockMinimo"
                     value={formulario.stockMinimo}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="5"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Proveedor</label>
+                {/* Proveedor - Col Span 2 */}
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    marginBottom: '10px',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase'
+                  }}>
+                    Proveedor
+                  </label>
                   <input
                     type="text"
                     name="proveedor"
                     value={formulario.proveedor}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg"
                     placeholder="Nombre del proveedor"
+                    style={{
+                      width: '100%',
+                      padding: '14px 18px',
+                      border: '2px solid rgba(103, 186, 205, 0.2)',
+                      borderRadius: '14px',
+                      fontSize: '15px',
+                      fontWeight: '500',
+                      color: '#276A7C',
+                      background: 'rgba(255, 255, 255, 0.8)',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#70EAF0';
+                      e.target.style.boxShadow = '0 0 0 4px rgba(112, 234, 240, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'rgba(103, 186, 205, 0.2)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
               </div>
 
-              <div className="flex gap-3 mt-6">
+              {/* Botones */}
+              <div style={{
+                display: 'flex',
+                gap: '16px',
+                marginTop: '32px'
+              }}>
                 <button
                   onClick={guardarProducto}
-                  className="button-primary flex-1 flex items-center justify-center gap-2"
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '12px',
+                    padding: '18px 32px',
+                    background: 'linear-gradient(135deg, #70EAF0 0%, #67BACD 100%)',
+                    border: 'none',
+                    borderRadius: '16px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    color: '#FFFFFF',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 8px 25px rgba(112, 234, 240, 0.4)'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 12px 35px rgba(112, 234, 240, 0.5)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(112, 234, 240, 0.4)';
+                  }}
                 >
-                  <Save className="w-5 h-5" />
-                  {modoEdicion ? 'Actualizar' : 'Crear'} Producto
+                  <Save style={{ width: '20px', height: '20px' }} />
+                  {modoEdicion ? 'Actualizar Producto' : 'Crear Producto'}
                 </button>
                 <button
                   onClick={() => setModalAbierto(false)}
-                  className="px-6 py-2.5 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors font-semibold"
+                  style={{
+                    padding: '18px 32px',
+                    background: 'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)',
+                    border: '1px solid rgba(39, 106, 124, 0.2)',
+                    borderRadius: '16px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = 'linear-gradient(135deg, #E8E8E8 0%, #D8D8D8 100%)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = 'linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
                 >
                   Cancelar
                 </button>
@@ -642,110 +1886,386 @@ const GestionProductos = () => {
 
       {/* Modal Ver Detalles */}
       {modalVer && productoSeleccionado && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full">
-            <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-slate-900">Detalles del Producto</h2>
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(8px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 50,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%)',
+            borderRadius: '32px',
+            boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3)',
+            maxWidth: '700px',
+            width: '100%',
+            overflow: 'hidden',
+            border: '1px solid rgba(112, 234, 240, 0.2)'
+          }}>
+            <div style={{
+              background: 'linear-gradient(135deg, #276A7C 0%, #67BACD 100%)',
+              padding: '28px 32px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{
+                  width: '50px',
+                  height: '50px',
+                  background: 'rgba(255, 255, 255, 0.25)',
+                  borderRadius: '15px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Eye style={{ width: '26px', height: '26px', color: '#FFFFFF' }} />
+                </div>
+                <h2 style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  color: '#FFFFFF',
+                  margin: 0
+                }}>
+                  Detalles del Producto
+                </h2>
+              </div>
               <button
                 onClick={() => setModalVer(false)}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                style={{
+                  padding: '12px',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  border: 'none',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                  e.currentTarget.style.transform = 'rotate(90deg)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.transform = 'rotate(0deg)';
+                }}
               >
-                <X className="w-6 h-6" />
+                <X style={{ width: '24px', height: '24px', color: '#FFFFFF' }} />
               </button>
             </div>
 
-            <div className="p-6">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2 bg-slate-50 p-4 rounded-lg">
-                  <p className="text-sm text-slate-600">Código</p>
-                  <p className="text-2xl font-bold text-slate-900 font-mono">{productoSeleccionado.codigo}</p>
+            <div style={{ padding: '32px' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '24px'
+              }}>
+                {/* Código */}
+                <div style={{
+                  gridColumn: '1 / -1',
+                  background: 'linear-gradient(135deg, rgba(112, 234, 240, 0.12) 0%, rgba(103, 186, 205, 0.08) 100%)',
+                  padding: '24px',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(112, 234, 240, 0.3)'
+                }}>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Código</p>
+                  <p style={{
+                    fontSize: '32px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    margin: 0,
+                    fontFamily: 'monospace'
+                  }}>{productoSeleccionado.codigo}</p>
                 </div>
 
-                <div className="col-span-2">
-                  <p className="text-sm text-slate-600">Nombre</p>
-                  <p className="text-lg font-semibold text-slate-900">{productoSeleccionado.nombre}</p>
+                {/* Nombre */}
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Nombre</p>
+                  <p style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    color: '#000000',
+                    margin: 0
+                  }}>{productoSeleccionado.nombre}</p>
                 </div>
 
+                {/* Descripción */}
                 {productoSeleccionado.descripcion && (
-                  <div className="col-span-2">
-                    <p className="text-sm text-slate-600">Descripción</p>
-                    <p className="text-slate-900">{productoSeleccionado.descripcion}</p>
+                  <div style={{ gridColumn: '1 / -1' }}>
+                    <p style={{
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      color: '#67BACD',
+                      margin: '0 0 10px 0',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase'
+                    }}>Descripción</p>
+                    <p style={{
+                      fontSize: '15px',
+                      color: '#333333',
+                      margin: 0,
+                      lineHeight: '1.6'
+                    }}>{productoSeleccionado.descripcion}</p>
                   </div>
                 )}
 
+                {/* Categoría */}
                 <div>
-                  <p className="text-sm text-slate-600">Categoría</p>
-                  <p className="font-semibold text-slate-900">{productoSeleccionado.categoria}</p>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Categoría</p>
+                  <p style={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#000000',
+                    margin: 0
+                  }}>{productoSeleccionado.categoria}</p>
                 </div>
 
+                {/* Género */}
                 <div>
-                  <p className="text-sm text-slate-600">Género</p>
-                  <p className="font-semibold text-slate-900">{productoSeleccionado.genero}</p>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Género</p>
+                  <p style={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#000000',
+                    margin: 0
+                    }}>{productoSeleccionado.genero}</p>
                 </div>
 
+                {/* Talla */}
                 <div>
-                  <p className="text-sm text-slate-600">Talla</p>
-                  <p className="font-semibold text-slate-900">{productoSeleccionado.talla}</p>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Talla</p>
+                  <p style={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#000000',
+                    margin: 0
+                  }}>{productoSeleccionado.talla}</p>
                 </div>
 
+                {/* Color */}
+                {productoSeleccionado.color && (
+                  <div>
+                    <p style={{
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      color: '#67BACD',
+                      margin: '0 0 10px 0',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase'
+                    }}>Color</p>
+                    <p style={{
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      color: '#000000',
+                      margin: 0
+                    }}>{productoSeleccionado.color}</p>
+                  </div>
+                )}
+
+                {/* Precio Compra */}
                 <div>
-                  <p className="text-sm text-slate-600">Color</p>
-                  <p className="font-semibold text-slate-900">{productoSeleccionado.color || 'N/A'}</p>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Precio Compra</p>
+                  <p style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: '#276A7C',
+                    margin: 0
+                  }}>{formatCurrency(productoSeleccionado.precioCompra)}</p>
                 </div>
 
-                <div className="bg-green-50 p-3 rounded-lg">
-                  <p className="text-sm text-green-700">Precio Compra</p>
-                  <p className="text-xl font-bold text-green-900">{formatCurrency(productoSeleccionado.precioCompra)}</p>
+                {/* Precio Venta */}
+                <div>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Precio Venta</p>
+                  <p style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: '#06D6A0',
+                    margin: 0
+                  }}>{formatCurrency(productoSeleccionado.precioVenta)}</p>
                 </div>
 
-                <div className="bg-blue-50 p-3 rounded-lg">
-                  <p className="text-sm text-blue-700">Precio Venta</p>
-                  <p className="text-xl font-bold text-blue-900">{formatCurrency(productoSeleccionado.precioVenta)}</p>
+                {/* Stock Actual */}
+                <div>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Stock Actual</p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <p style={{
+                      fontSize: '28px',
+                      fontWeight: '700',
+                      color: productoSeleccionado.alertaStock ? '#FFD166' : '#06D6A0',
+                      margin: 0
+                    }}>{productoSeleccionado.stockActual}</p>
+                    {productoSeleccionado.alertaStock && (
+                      <AlertTriangle style={{ width: '24px', height: '24px', color: '#FFD166' }} />
+                    )}
+                  </div>
                 </div>
 
-                <div className={`p-3 rounded-lg ${productoSeleccionado.alertaStock ? 'bg-amber-50' : 'bg-purple-50'}`}>
-                  <p className={`text-sm ${productoSeleccionado.alertaStock ? 'text-amber-700' : 'text-purple-700'}`}>Stock Actual</p>
-                  <p className={`text-xl font-bold ${productoSeleccionado.alertaStock ? 'text-amber-900' : 'text-purple-900'}`}>
-                    {productoSeleccionado.stockActual} unidades
-                  </p>
+                {/* Stock Mínimo */}
+                <div>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Stock Mínimo</p>
+                  <p style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    color: '#276A7C',
+                    margin: 0
+                  }}>{productoSeleccionado.stockMinimo}</p>
                 </div>
 
-                <div className="bg-slate-50 p-3 rounded-lg">
-                  <p className="text-sm text-slate-600">Stock Mínimo</p>
-                  <p className="text-xl font-bold text-slate-900">{productoSeleccionado.stockMinimo} unidades</p>
-                </div>
-
+                {/* Proveedor */}
                 {productoSeleccionado.proveedor && (
-                  <div className="col-span-2">
-                    <p className="text-sm text-slate-600">Proveedor</p>
-                    <p className="font-semibold text-slate-900">{productoSeleccionado.proveedor}</p>
+                  <div style={{ gridColumn: '1 / -1' }}>
+                    <p style={{
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      color: '#67BACD',
+                      margin: '0 0 10px 0',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase'
+                    }}>Proveedor</p>
+                    <p style={{
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      color: '#000000',
+                      margin: 0
+                    }}>{productoSeleccionado.proveedor}</p>
                   </div>
                 )}
 
-                <div className="col-span-2 bg-indigo-50 p-3 rounded-lg">
-                  <p className="text-sm text-indigo-700">Margen de Ganancia</p>
-                  <p className="text-2xl font-bold text-indigo-900">
-                    {productoSeleccionado.precioCompra > 0 
-                      ? ((productoSeleccionado.precioVenta - productoSeleccionado.precioCompra) / productoSeleccionado.precioCompra * 100).toFixed(2)
-                      : 0}%
-                  </p>
-                </div>
-
-                <div className="col-span-2">
-                  <p className="text-sm text-slate-600">Estado</p>
-                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${
-                    productoSeleccionado.activo 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-red-100 text-red-800'
-                  }`}>
-                    {productoSeleccionado.activo ? 'Activo' : 'Inactivo'}
-                  </span>
+                {/* Estado */}
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    color: '#67BACD',
+                    margin: '0 0 10px 0',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>Estado</p>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 18px',
+                    background: productoSeleccionado.activo 
+                      ? 'linear-gradient(135deg, rgba(6, 214, 160, 0.15) 0%, rgba(6, 214, 160, 0.1) 100%)'
+                      : 'linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 107, 107, 0.1) 100%)',
+                    borderRadius: '12px',
+                    border: productoSeleccionado.activo 
+                      ? '1px solid rgba(6, 214, 160, 0.3)'
+                      : '1px solid rgba(255, 107, 107, 0.3)'
+                  }}>
+                    <div style={{
+                      width: '10px',
+                      height: '10px',
+                      borderRadius: '50%',
+                      background: productoSeleccionado.activo ? '#06D6A0' : '#FF6B6B'
+                    }} />
+                    <span style={{
+                      fontSize: '14px',
+                      fontWeight: '700',
+                      color: productoSeleccionado.activo ? '#06D6A0' : '#FF6B6B'
+                    }}>
+                      {productoSeleccionado.activo ? 'Activo' : 'Inactivo'}
+                    </span>
+                  </div>
                 </div>
               </div>
 
+              {/* Botón Cerrar */}
               <button
                 onClick={() => setModalVer(false)}
-                className="w-full mt-6 button-secondary"
+                style={{
+                  width: '100%',
+                  marginTop: '32px',
+                  padding: '18px 32px',
+                  background: 'linear-gradient(135deg, #70EAF0 0%, #67BACD 100%)',
+                  border: 'none',
+                  borderRadius: '16px',
+                  fontSize: '16px',
+                  fontWeight: '700',
+                  color: '#FFFFFF',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 8px 25px rgba(112, 234, 240, 0.4)'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 12px 35px rgba(112, 234, 240, 0.5)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(112, 234, 240, 0.4)';
+                }}
               >
                 Cerrar
               </button>
@@ -758,3 +2278,4 @@ const GestionProductos = () => {
 };
 
 export default GestionProductos;
+                    
