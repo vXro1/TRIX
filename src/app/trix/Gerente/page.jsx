@@ -5,38 +5,30 @@ import {
   Package,
   AlertTriangle,
   Store,
-  Clock,
   User,
-  RefreshCw,
   DollarSign,
   BarChart3,
   ShoppingCart,
   PackageCheck,
   LogOut,
-  Menu,
-  X,
   QrCode,
   MessageSquare,
   Send,
   Sparkles,
   Calendar,
-  TrendingDown,
-  Users,
   Percent,
   Zap,
-  Target,
   Activity,
-  ChevronDown,
-  ChevronUp,
   Brain,
   Cpu,
-  CheckCircle,
-  XCircle,
   Loader,
   ArrowUpRight,
   ArrowDownRight,
-  Eye,
-  Bell
+  Bell,
+  X,
+  TrendingDown,
+  Target,
+  LineChart
 } from 'lucide-react';
 
 const API_BASE_URL = 'https://backend-hackathon-t4q9.onrender.com/api';
@@ -44,7 +36,6 @@ const API_BASE_URL = 'https://backend-hackathon-t4q9.onrender.com/api';
 const DashboardGerente = () => {
   const [loading, setLoading] = useState(true);
   const [usuario, setUsuario] = useState({ nombre: 'Admin', rol: 'gerente' });
-  const [menuAbierto, setMenuAbierto] = useState(false);
   const [chatAbierto, setChatAbierto] = useState(false);
   const [mensajeChat, setMensajeChat] = useState('');
   const [cargandoChat, setCargandoChat] = useState(false);
@@ -52,19 +43,29 @@ const DashboardGerente = () => {
   const [analisisSeleccionado, setAnalisisSeleccionado] = useState(null);
   const [historiaMensajes, setHistoriaMensajes] = useState([]);
   const [dashboardData, setDashboardData] = useState({
-    tendencias: null,
-    sobreStock: [],
-    reabastecimiento: [],
     valorInventario: { valorTotal: 125000000, cantidadProductos: 4580 },
     rotacion: { promedioRotacion: 2.8, rotacionOptima: 3.5 },
-    productosStockBajo: [],
-    sucursales: null,
-    horariosPico: []
   });
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
+    cargarDatos();
   }, []);
+
+  const cargarDatos = async () => {
+    try {
+      // Aquí puedes llamar a las APIs reales
+      // const response = await fetch(`${API_BASE_URL}/sucursales/comparar-rendimiento`, {
+      //   headers: { 'Authorization': `Bearer ${token}` }
+      // });
+      // const data = await response.json();
+      // setDashboardData(data);
+      
+      setTimeout(() => setLoading(false), 1500);
+    } catch (error) {
+      console.error('Error al cargar datos:', error);
+      setLoading(false);
+    }
+  };
 
   const consultarIA = async (tipo) => {
     setCargandoChat(true);
@@ -111,12 +112,16 @@ const DashboardGerente = () => {
     window.location.href = '/trix/login';
   };
 
+  const irAPredicciones = () => {
+    window.location.href = '/trix/Gerente/prediciones';
+  };
+
   const menuItems = [
-    { href: '/trix/Gerente/productos', icon: Package, label: 'Productos', gradient: { from: '#3b82f6', to: '#0891b2' }, color: '#3b82f6' },
-    { href: '/trix/Gerente/inventario', icon: BarChart3, label: 'Inventario', gradient: { from: '#10b981', to: '#059669' }, color: '#10b981' },
-    { href: '/trix/Gerente/reportes', icon: ShoppingCart, label: 'Reportes', gradient: { from: '#a855f7', to: '#ec4899' }, color: '#a855f7' },
-    { href: '/trix/Gerente/sucursal', icon: Store, label: 'Sucursales', gradient: { from: '#f97316', to: '#dc2626' }, color: '#f97316' },
-    { href: '/trix/Gerente/scanner', icon: QrCode, label: 'Scanner QR', gradient: { from: '#6366f1', to: '#a855f7' }, color: '#6366f1' }
+    { href: '/trix/Gerente/productos', icon: Package, label: 'Productos', color: '#276A7C' },
+    { href: '/trix/Gerente/inventario', icon: BarChart3, label: 'Inventario', color: '#67BACD' },
+    { href: '/trix/Gerente/reportes', icon: ShoppingCart, label: 'Reportes', color: '#5EACBB' },
+    { href: '/trix/Gerente/sucursal', icon: Store, label: 'Sucursales', color: '#276A7C' },
+    { href: '/trix/Gerente/scanner', icon: QrCode, label: 'Scanner QR', color: '#70EAF0' }
   ];
 
   const statsCards = [
@@ -126,7 +131,7 @@ const DashboardGerente = () => {
       change: '+12.5%',
       trend: 'up',
       icon: DollarSign,
-      color: '#10b981'
+      color: '#67BACD'
     },
     { 
       title: 'Productos Totales', 
@@ -134,7 +139,7 @@ const DashboardGerente = () => {
       change: '+8.2%',
       trend: 'up',
       icon: Package,
-      color: '#3b82f6'
+      color: '#276A7C'
     },
     { 
       title: 'Rotación Promedio', 
@@ -142,7 +147,7 @@ const DashboardGerente = () => {
       change: '-0.3',
       trend: 'down',
       icon: Activity,
-      color: '#f59e0b'
+      color: '#5EACBB'
     },
     { 
       title: 'Stock Bajo', 
@@ -150,7 +155,7 @@ const DashboardGerente = () => {
       change: 'Alerta',
       trend: 'alert',
       icon: AlertTriangle,
-      color: '#ef4444'
+      color: '#FF6B6B'
     }
   ];
 
@@ -159,42 +164,42 @@ const DashboardGerente = () => {
       title: 'Rotación de Productos',
       description: 'Análisis predictivo de movimiento',
       icon: Activity,
-      gradient: { from: '#22d3ee', to: '#3b82f6' },
+      color: '#70EAF0',
       action: () => consultarIA('rotacion')
     },
     { 
       title: 'Sobre Stock',
       description: 'Identificar excesos de inventario',
       icon: PackageCheck,
-      gradient: { from: '#c084fc', to: '#ec4899' },
+      color: '#9D4EDD',
       action: () => consultarIA('sobrestock')
     },
     { 
       title: 'Reabastecimiento',
       description: 'Sugerencias inteligentes de compra',
       icon: TrendingUp,
-      gradient: { from: '#4ade80', to: '#10b981' },
+      color: '#06D6A0',
       action: () => consultarIA('reabastecimiento')
     },
     { 
       title: 'Comparativo Sucursales',
       description: 'Rendimiento entre ubicaciones',
       icon: Store,
-      gradient: { from: '#fb923c', to: '#ef4444' },
+      color: '#276A7C',
       action: () => consultarIA('comparativo')
     },
     { 
       title: 'Tendencias Mensuales',
       description: 'Patrones de ventas detectados',
       icon: Calendar,
-      gradient: { from: '#818cf8', to: '#a855f7' },
+      color: '#67BACD',
       action: () => consultarIA('tendencias')
     },
     { 
       title: 'Estrategia de Descuentos',
       description: 'Optimización de promociones',
       icon: Percent,
-      gradient: { from: '#f472b6', to: '#fb7185' },
+      color: '#5EACBB',
       action: () => consultarIA('descuentos')
     }
   ];
@@ -207,7 +212,7 @@ const DashboardGerente = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#FFFFFF',
         zIndex: 50
       }}>
         <div style={{ textAlign: 'center' }}>
@@ -215,41 +220,41 @@ const DashboardGerente = () => {
             <div style={{
               position: 'absolute',
               inset: 0,
-              border: '8px solid #dbeafe',
+              border: '8px solid rgba(103, 186, 205, 0.2)',
               borderRadius: '50%'
             }}></div>
             <div style={{
               position: 'absolute',
               inset: 0,
               border: '8px solid transparent',
-              borderTopColor: '#3b82f6',
+              borderTopColor: '#70EAF0',
               borderRadius: '50%',
               animation: 'spin 1s linear infinite'
             }}></div>
             <div style={{
               position: 'absolute',
               inset: '16px',
-              border: '8px solid #cffafe',
+              border: '8px solid rgba(112, 234, 240, 0.2)',
               borderRadius: '50%'
             }}></div>
             <div style={{
               position: 'absolute',
               inset: '16px',
               border: '8px solid transparent',
-              borderTopColor: '#06b6d4',
+              borderTopColor: '#276A7C',
               borderRadius: '50%',
               animation: 'spin 1.5s linear infinite'
             }}></div>
           </div>
           <div style={{
-            background: 'linear-gradient(to right, #3b82f6, #06b6d4)',
+            background: 'linear-gradient(135deg, #276A7C 0%, #70EAF0 100%)',
             color: 'white',
             borderRadius: '1rem',
             padding: '1.5rem 2.5rem',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            boxShadow: '0 0 40px rgba(112, 234, 240, 0.4)'
           }}>
             <p style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Inicializando TRIX</p>
-            <p style={{ color: '#dbeafe', fontSize: '0.875rem' }}>Cargando módulos de análisis...</p>
+            <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.875rem' }}>Cargando módulos de análisis...</p>
           </div>
         </div>
         <style>{`
@@ -265,132 +270,172 @@ const DashboardGerente = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(to bottom right, #f8fafc, #eff6ff, #ecfeff)'
+      backgroundColor: '#FFFFFF'
     }}>
       {/* Header */}
       <header style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        borderBottom: '1px solid #e2e8f0',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        borderBottom: '2px solid rgba(112, 234, 240, 0.2)',
         position: 'sticky',
         top: 0,
         zIndex: 40,
-        backdropFilter: 'blur(12px)',
-        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+        backdropFilter: 'blur(20px)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)'
       }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2rem' }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '80px'
+            height: '90px'
           }}>
             {/* Logo */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <div style={{ position: 'relative' }}>
                 <div style={{
-                  width: '48px',
-                  height: '48px',
-                  background: 'linear-gradient(to bottom right, #3b82f6, #06b6d4)',
-                  borderRadius: '1rem',
+                  width: '56px',
+                  height: '56px',
+                  background: 'linear-gradient(135deg, #276A7C 0%, #70EAF0 100%)',
+                  borderRadius: '1.25rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                  transition: 'transform 0.2s',
+                  boxShadow: '0 0 30px rgba(112, 234, 240, 0.5)',
+                  transition: 'all 0.3s',
                   cursor: 'pointer'
                 }}>
-                  <Cpu size={28} color="white" />
+                  <Cpu size={32} color="white" />
                 </div>
                 <div style={{
                   position: 'absolute',
                   top: '-4px',
                   right: '-4px',
-                  width: '16px',
-                  height: '16px',
-                  backgroundColor: '#4ade80',
+                  width: '18px',
+                  height: '18px',
+                  backgroundColor: '#06D6A0',
                   borderRadius: '50%',
-                  border: '2px solid white',
+                  border: '3px solid white',
+                  boxShadow: '0 0 15px rgba(6, 214, 160, 0.6)',
                   animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
                 }}></div>
               </div>
               <div>
                 <h1 style={{
-                  fontSize: '1.5rem',
+                  fontSize: '1.75rem',
                   fontWeight: '900',
-                  background: 'linear-gradient(to right, #2563eb, #0891b2)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
+                  color: '#276A7C',
+                  letterSpacing: '0.05em',
+                  margin: 0
                 }}>
                   TRIX
                 </h1>
-                <p style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>Neural Dashboard</p>
+                <p style={{ fontSize: '0.75rem', color: '#67BACD', fontWeight: '600', margin: 0 }}>Neural Dashboard</p>
               </div>
             </div>
 
             {/* User Info */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              <button
+                onClick={irAPredicciones}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.875rem 1.5rem',
+                  background: 'linear-gradient(135deg, #70EAF0 0%, #276A7C 100%)',
+                  color: 'white',
+                  borderRadius: '1rem',
+                  fontWeight: 'bold',
+                  fontSize: '0.875rem',
+                  boxShadow: '0 0 20px rgba(112, 234, 240, 0.3)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(112, 234, 240, 0.6)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(112, 234, 240, 0.3)';
+                }}
+              >
+                <LineChart size={20} />
+                Predicciones IA
+              </button>
+
               <button style={{
                 position: 'relative',
-                padding: '0.75rem',
-                borderRadius: '0.75rem',
-                border: 'none',
+                padding: '0.875rem',
+                borderRadius: '1rem',
+                border: '2px solid rgba(112, 234, 240, 0.2)',
                 background: 'transparent',
                 cursor: 'pointer',
-                transition: 'background-color 0.2s'
+                transition: 'all 0.3s'
               }}>
-                <Bell size={20} color="#475569" />
+                <Bell size={22} color="#276A7C" />
                 <span style={{
                   position: 'absolute',
                   top: '0.5rem',
                   right: '0.5rem',
-                  width: '8px',
-                  height: '8px',
-                  backgroundColor: '#ef4444',
-                  borderRadius: '50%'
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: '#FF6B6B',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 10px rgba(255, 107, 107, 0.6)'
                 }}></span>
               </button>
               
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.75rem',
-                background: 'linear-gradient(to right, #eff6ff, #ecfeff)',
-                padding: '0.5rem 1rem',
+                gap: '0.875rem',
+                background: 'linear-gradient(135deg, rgba(112, 234, 240, 0.1) 0%, rgba(103, 186, 205, 0.1) 100%)',
+                padding: '0.625rem 1.25rem',
                 borderRadius: '1rem',
-                border: '1px solid #dbeafe'
+                border: '2px solid rgba(112, 234, 240, 0.3)'
               }}>
                 <div style={{
-                  width: '40px',
-                  height: '40px',
-                  background: 'linear-gradient(to bottom right, #60a5fa, #22d3ee)',
-                  borderRadius: '0.75rem',
+                  width: '44px',
+                  height: '44px',
+                  background: 'linear-gradient(135deg, #67BACD 0%, #276A7C 100%)',
+                  borderRadius: '1rem',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  boxShadow: '0 0 20px rgba(103, 186, 205, 0.3)'
                 }}>
-                  <User size={20} color="white" />
+                  <User size={22} color="white" />
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.875rem', fontWeight: 'bold', color: '#1e293b', margin: 0 }}>{usuario.nombre}</p>
-                  <p style={{ fontSize: '0.75rem', color: '#64748b', margin: 0, textTransform: 'capitalize' }}>{usuario.rol}</p>
+                  <p style={{ fontSize: '0.875rem', fontWeight: 'bold', color: '#000000', margin: 0 }}>{usuario.nombre}</p>
+                  <p style={{ fontSize: '0.75rem', color: '#67BACD', margin: 0, textTransform: 'capitalize' }}>{usuario.rol}</p>
                 </div>
               </div>
 
               <button
                 onClick={cerrarSesion}
                 style={{
-                  padding: '0.75rem',
-                  borderRadius: '0.75rem',
-                  border: 'none',
+                  padding: '0.875rem',
+                  borderRadius: '1rem',
+                  border: '2px solid rgba(255, 107, 107, 0.2)',
                   background: 'transparent',
-                  color: '#dc2626',
+                  color: '#FF6B6B',
                   cursor: 'pointer',
-                  transition: 'background-color 0.2s'
+                  transition: 'all 0.3s'
                 }}
                 title="Cerrar Sesión"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 107, 107, 0.1)';
+                  e.currentTarget.style.borderColor = '#FF6B6B';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = 'rgba(255, 107, 107, 0.2)';
+                }}
               >
-                <LogOut size={20} />
+                <LogOut size={22} />
               </button>
             </div>
           </div>
@@ -398,55 +443,60 @@ const DashboardGerente = () => {
       </header>
 
       {/* Main Content */}
-      <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem' }}>
+      <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '3rem 2rem' }}>
         {/* Welcome Section */}
         <div style={{
-          marginBottom: '2rem',
+          marginBottom: '3rem',
           position: 'relative',
           overflow: 'hidden',
-          borderRadius: '1.5rem',
-          background: 'linear-gradient(to bottom right, #3b82f6, #06b6d4, #3b82f6)',
-          padding: '2rem',
+          borderRadius: '2rem',
+          background: 'linear-gradient(135deg, #276A7C 0%, #70EAF0 100%)',
+          padding: '3rem',
           color: 'white',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+          boxShadow: '0 0 60px rgba(112, 234, 240, 0.3)',
+          border: '2px solid rgba(255, 255, 255, 0.1)'
         }}>
           <div style={{
             position: 'absolute',
             top: 0,
             right: 0,
-            width: '256px',
-            height: '256px',
-            background: 'rgba(255, 255, 255, 0.1)',
+            width: '400px',
+            height: '400px',
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%)',
             borderRadius: '50%',
-            marginRight: '-128px',
-            marginTop: '-128px'
+            marginRight: '-200px',
+            marginTop: '-200px'
           }}></div>
           <div style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
-            width: '192px',
-            height: '192px',
-            background: 'rgba(255, 255, 255, 0.1)',
+            width: '300px',
+            height: '300px',
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
             borderRadius: '50%',
-            marginLeft: '-96px',
-            marginBottom: '-96px'
+            marginLeft: '-150px',
+            marginBottom: '-150px'
           }}></div>
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <Sparkles size={32} style={{ animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
-              <h2 style={{ fontSize: '1.875rem', fontWeight: '900', margin: 0 }}>Bienvenido de nuevo, {usuario.nombre}</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+              <Sparkles size={40} style={{ animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
+              <h2 style={{ fontSize: '2.25rem', fontWeight: '900', margin: 0, letterSpacing: '0.02em' }}>
+                Bienvenido de nuevo, {usuario.nombre}
+              </h2>
             </div>
-            <p style={{ color: '#dbeafe', fontSize: '1.125rem', margin: 0 }}>Tu centro de comando inteligente para gestión de inventario</p>
+            <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '1.25rem', margin: 0, fontWeight: '500' }}>
+              Tu centro de comando inteligente para gestión de inventario
+            </p>
           </div>
         </div>
 
         {/* Stats Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '1.5rem',
-          marginBottom: '2rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '2rem',
+          marginBottom: '3rem'
         }}>
           {statsCards.map((stat, index) => {
             const Icon = stat.icon;
@@ -458,73 +508,79 @@ const DashboardGerente = () => {
                 key={index}
                 style={{
                   position: 'relative',
-                  backgroundColor: 'white',
-                  borderRadius: '1.5rem',
-                  padding: '1.5rem',
-                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                  transition: 'all 0.3s',
-                  border: '1px solid #f1f5f9',
-                  cursor: 'pointer'
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '1.75rem',
+                  padding: '2rem',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+                  transition: 'all 0.4s',
+                  border: '2px solid rgba(112, 234, 240, 0.15)',
+                  cursor: 'pointer',
+                  overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)';
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = `0 15px 50px ${stat.color}33`;
+                  e.currentTarget.style.borderColor = stat.color;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(112, 234, 240, 0.15)';
                 }}
               >
                 <div style={{
                   position: 'absolute',
                   top: 0,
                   right: 0,
-                  width: '128px',
-                  height: '128px',
-                  opacity: 0.05
+                  width: '150px',
+                  height: '150px',
+                  opacity: 0.03
                 }}>
-                  <Icon size={128} />
+                  <Icon size={150} />
                 </div>
                 
                 <div style={{ position: 'relative', zIndex: 10 }}>
                   <div style={{
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '1rem',
-                    background: `linear-gradient(to bottom right, ${stat.color}, ${stat.color}dd)`,
+                    width: '64px',
+                    height: '64px',
+                    borderRadius: '1.25rem',
+                    background: `linear-gradient(135deg, ${stat.color} 0%, ${stat.color}dd 100%)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '1rem',
-                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                    transition: 'transform 0.2s'
+                    marginBottom: '1.5rem',
+                    boxShadow: `0 10px 30px ${stat.color}40`,
+                    transition: 'transform 0.3s'
                   }}>
-                    <Icon size={28} color="white" />
+                    <Icon size={32} color="white" />
                   </div>
                   
                   <h3 style={{
-                    color: '#64748b',
+                    color: '#67BACD',
                     fontSize: '0.875rem',
-                    fontWeight: '600',
-                    marginBottom: '0.5rem'
+                    fontWeight: '700',
+                    marginBottom: '0.75rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
                   }}>{stat.title}</h3>
                   <p style={{
-                    fontSize: '1.875rem',
+                    fontSize: '2.25rem',
                     fontWeight: '900',
-                    color: '#1e293b',
-                    marginBottom: '0.5rem'
+                    color: '#000000',
+                    marginBottom: '0.75rem',
+                    letterSpacing: '-0.02em'
                   }}>{stat.value}</p>
                   
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.25rem',
+                    gap: '0.5rem',
                     fontSize: '0.875rem',
                     fontWeight: 'bold',
-                    color: isAlert ? '#dc2626' : isUp ? '#16a34a' : '#f59e0b'
+                    color: isAlert ? '#FF6B6B' : isUp ? '#06D6A0' : '#FFD166'
                   }}>
-                    {!isAlert && (isUp ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />)}
-                    {isAlert && <AlertTriangle size={16} />}
+                    {!isAlert && (isUp ? <ArrowUpRight size={18} /> : <ArrowDownRight size={18} />)}
+                    {isAlert && <AlertTriangle size={18} />}
                     <span>{stat.change}</span>
                   </div>
                 </div>
@@ -534,24 +590,24 @@ const DashboardGerente = () => {
         </div>
 
         {/* Quick Access Menu */}
-        <div style={{ marginBottom: '2rem' }}>
+        <div style={{ marginBottom: '3rem' }}>
           <h3 style={{
-            fontSize: '1.5rem',
+            fontSize: '1.75rem',
             fontWeight: '900',
-            color: '#1e293b',
-            marginBottom: '1.5rem',
+            color: '#000000',
+            marginBottom: '2rem',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.75rem'
+            gap: '1rem'
           }}>
-            <Zap size={28} color="#3b82f6" />
+            <Zap size={32} color="#70EAF0" style={{ filter: 'drop-shadow(0 0 10px rgba(112, 234, 240, 0.5))' }} />
             Acceso Rápido
           </h3>
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-            gap: '1rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: '1.5rem'
           }}>
             {menuItems.map((item, index) => {
               const Icon = item.icon;
@@ -561,42 +617,44 @@ const DashboardGerente = () => {
                   href={item.href}
                   style={{
                     position: 'relative',
-                    backgroundColor: 'white',
-                    borderRadius: '1rem',
-                    padding: '1.5rem',
-                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s',
-                    border: '1px solid #f1f5f9',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '1.5rem',
+                    padding: '2rem 1.5rem',
+                    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+                    transition: 'all 0.4s',
+                    border: '2px solid rgba(112, 234, 240, 0.15)',
                     overflow: 'hidden',
                     textDecoration: 'none',
                     display: 'block'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)';
+                    e.currentTarget.style.transform = 'translateY(-10px)';
+                    e.currentTarget.style.boxShadow = `0 15px 50px ${item.color}33`;
+                    e.currentTarget.style.borderColor = item.color;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
+                    e.currentTarget.style.borderColor = 'rgba(112, 234, 240, 0.15)';
                   }}
                 >
                   <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                     <div style={{
-                      width: '64px',
-                      height: '64px',
-                      borderRadius: '1rem',
-                      background: `linear-gradient(to bottom right, ${item.gradient.from}, ${item.gradient.to})`,
+                      width: '72px',
+                      height: '72px',
+                      borderRadius: '1.25rem',
+                      background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}dd 100%)`,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      marginBottom: '1rem',
-                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                      transition: 'transform 0.2s'
+                      marginBottom: '1.25rem',
+                      boxShadow: `0 10px 30px ${item.color}40`,
+                      transition: 'transform 0.3s'
                     }}>
-                      <Icon size={32} color="white" />
+                      <Icon size={36} color="white" />
                     </div>
-                    <h4 style={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '0.25rem' }}>{item.label}</h4>
-                    <p style={{ fontSize: '0.75rem', color: '#64748b', margin: 0 }}>Acceso directo</p>
+                    <h4 style={{ fontWeight: 'bold', color: '#000000', marginBottom: '0.5rem', fontSize: '1rem' }}>{item.label}</h4>
+                    <p style={{ fontSize: '0.75rem', color: '#67BACD', margin: 0, fontWeight: '600' }}>Acceso directo</p>
                   </div>
                 </a>
               );
@@ -605,18 +663,18 @@ const DashboardGerente = () => {
         </div>
 
         {/* AI Analytics Section */}
-        <div style={{ marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1.5rem' }}>
             <h3 style={{
-              fontSize: '1.5rem',
+              fontSize: '1.75rem',
               fontWeight: '900',
-              color: '#1e293b',
+              color: '#000000',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
+              gap: '1rem',
               margin: 0
             }}>
-              <Brain size={28} color="#a855f7" />
+              <Brain size={32} color="#9D4EDD" style={{ filter: 'drop-shadow(0 0 10px rgba(157, 78, 221, 0.5))' }} />
               Análisis con IA
             </h3>
             <button
@@ -624,35 +682,36 @@ const DashboardGerente = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.75rem 1.25rem',
-                background: 'linear-gradient(to right, #a855f7, #ec4899)',
+                gap: '0.75rem',
+                padding: '1rem 1.75rem',
+                background: 'linear-gradient(135deg, #9D4EDD 0%, #67BACD 100%)',
                 color: 'white',
-                borderRadius: '0.75rem',
+                borderRadius: '1rem',
                 fontWeight: 'bold',
-                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                fontSize: '0.875rem',
+                boxShadow: '0 0 30px rgba(157, 78, 221, 0.4)',
                 border: 'none',
                 cursor: 'pointer',
-                transition: 'all 0.2s'
+                transition: 'all 0.3s'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.boxShadow = '0 0 40px rgba(157, 78, 221, 0.6)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.boxShadow = '0 0 30px rgba(157, 78, 221, 0.4)';
               }}
             >
-              <MessageSquare size={20} />
+              <MessageSquare size={22} />
               Chat IA
             </button>
           </div>
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.5rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '2rem'
           }}>
             {aiAnalytics.map((analytic, index) => {
               const Icon = analytic.icon;
@@ -662,51 +721,54 @@ const DashboardGerente = () => {
                   onClick={analytic.action}
                   style={{
                     position: 'relative',
-                    backgroundColor: 'white',
-                    borderRadius: '1.5rem',
-                    padding: '1.5rem',
-                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s',
-                    border: '1px solid #f1f5f9',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '1.75rem',
+                    padding: '2rem',
+                    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+                    transition: 'all 0.4s',
+                    border: '2px solid rgba(112, 234, 240, 0.15)',
                     textAlign: 'left',
                     overflow: 'hidden',
                     cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)';
+                    e.currentTarget.style.transform = 'translateY(-10px)';
+                    e.currentTarget.style.boxShadow = `0 15px 50px ${analytic.color}33`;
+                    e.currentTarget.style.borderColor = analytic.color;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
+                    e.currentTarget.style.borderColor = 'rgba(112, 234, 240, 0.15)';
                   }}
                 >
                   <div style={{ position: 'relative', zIndex: 10 }}>
                     <div style={{
-                      width: '64px',
-                      height: '64px',
-                      borderRadius: '1rem',
-                      background: `linear-gradient(to bottom right, ${analytic.gradient.from}, ${analytic.gradient.to})`,
+                      width: '72px',
+                      height: '72px',
+                      borderRadius: '1.25rem',
+                      background: `linear-gradient(135deg, ${analytic.color} 0%, ${analytic.color}dd 100%)`,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      marginBottom: '1rem',
-                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                      transition: 'transform 0.2s'
+                      marginBottom: '1.5rem',
+                      boxShadow: `0 10px 30px ${analytic.color}40`,
+                      transition: 'transform 0.3s'
                     }}>
-                      <Icon size={32} color="white" />
+                      <Icon size={36} color="white" />
                     </div>
                     
                     <h4 style={{
                       fontWeight: 'bold',
-                      color: '#1e293b',
-                      marginBottom: '0.5rem',
+                      color: '#000000',
+                      marginBottom: '0.75rem',
                       fontSize: '1.125rem'
                     }}>{analytic.title}</h4>
                     <p style={{
                       fontSize: '0.875rem',
-                      color: '#64748b',
-                      marginBottom: '1rem'
+                      color: '#67BACD',
+                      marginBottom: '1.25rem',
+                      lineHeight: '1.5'
                     }}>{analytic.description}</p>
                     
                     <div style={{
@@ -715,10 +777,10 @@ const DashboardGerente = () => {
                       gap: '0.5rem',
                       fontSize: '0.875rem',
                       fontWeight: 'bold',
-                      color: '#2563eb'
+                      color: '#276A7C'
                     }}>
                       <span>Analizar ahora</span>
-                      <ArrowUpRight size={16} />
+                      <ArrowUpRight size={18} />
                     </div>
                   </div>
                 </button>
@@ -727,123 +789,271 @@ const DashboardGerente = () => {
           </div>
         </div>
       </main>
-{/* Chat IA Modal */}
-{chatAbierto && (
-  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div className="bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-      
-      {/* Chat Header */}
-      <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-xl">
-            <Brain className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h3 className="text-xl font-black text-white">TRIX Neural Assistant</h3>
-            <p className="text-purple-100 text-sm">Asistente inteligente activado</p>
-          </div>
-        </div>
-        <button
-          onClick={() => {
-            setChatAbierto(false);
-            setRespuestaIA(null);
-            setAnalisisSeleccionado(null);
-          }}
-          className="p-2 hover:bg-white/20 rounded-xl transition-colors"
-        >
-          <X className="w-6 h-6 text-white" />
-        </button>
-      </div>
 
-      {/* Chat Content */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50">
-        {cargandoChat ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <Loader className="w-12 h-12 text-purple-500 animate-spin mx-auto mb-4" />
-              <p className="text-slate-600 font-medium">Procesando análisis...</p>
-            </div>
-          </div>
-        ) : respuestaIA ? (
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
-            <div className="flex items-start gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Sparkles className="w-5 h-5 text-white" />
+      {/* Chat IA Modal */}
+      {chatAbierto && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backdropFilter: 'blur(10px)',
+          zIndex: 50,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1rem'
+        }}>
+          <div style={{
+            backgroundColor: '#FFFFFF',
+            borderRadius: '2rem',
+            width: '100%',
+            maxWidth: '900px',
+            maxHeight: '90vh',
+            display: 'flex',
+            flexDirection: 'column',
+            boxShadow: '0 0 80px rgba(112, 234, 240, 0.4)',
+            border: '2px solid rgba(112, 234, 240, 0.3)',
+            overflow: 'hidden'
+          }}>
+            
+            {/* Chat Header */}
+            <div style={{
+              background: 'linear-gradient(135deg, #9D4EDD 0%, #67BACD 100%)',
+              padding: '2rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{
+                  width: '56px',
+                  height: '56px',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '1.25rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backdropFilter: 'blur(10px)',
+                  border: '2px solid rgba(255, 255, 255, 0.3)'
+                }}>
+                  <Brain size={28} color="white" />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: '900', color: 'white', margin: 0 }}>TRIX Neural Assistant</h3>
+                  <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '0.875rem', margin: 0, fontWeight: '500' }}>Asistente inteligente activado</p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-bold text-slate-800 mb-1">Análisis Completado</h4>
-                <p className="text-sm text-slate-500">
-                  Resultado del análisis de {analisisSeleccionado}
-                </p>
-              </div>
+              <button
+                onClick={() => {
+                  setChatAbierto(false);
+                  setRespuestaIA(null);
+                  setAnalisisSeleccionado(null);
+                }}
+                style={{
+                  padding: '0.75rem',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '1rem',
+                  border: '2px solid rgba(255, 255, 255, 0.3)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                }}
+              >
+                <X size={24} color="white" />
+              </button>
             </div>
-            <div className="bg-slate-50 p-4 rounded-xl text-sm overflow-x-auto border border-slate-200">
-              <pre className="whitespace-pre-wrap">
-                {JSON.stringify(respuestaIA, null, 2)}
-              </pre>
-            </div>
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-400 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <MessageSquare className="w-10 h-10 text-white" />
-            </div>
-            <h4 className="text-xl font-bold text-slate-800 mb-2">
-              ¿En qué puedo ayudarte?
-            </h4>
-            <p className="text-slate-500">
-              Escribe tu consulta o selecciona un análisis rápido
-            </p>
-          </div>
-        )}
 
-        {historiaMensajes.map((msg, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              msg.tipo === 'usuario' ? 'justify-end' : 'justify-start'
-            }`}
-          >
-            <div
-              className={`max-w-[80%] rounded-2xl p-4 ${
-                msg.tipo === 'usuario'
-                  ? 'bg-gradient-to-br from-blue-500 to-cyan-500 text-white'
-                  : 'bg-white text-slate-800 border border-slate-200'
-              }`}
-            >
-              {msg.tipo === 'usuario' ? (
-                <p>{msg.texto}</p>
+            {/* Chat Content */}
+            <div style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '2rem',
+              backgroundColor: 'rgba(112, 234, 240, 0.05)'
+            }}>
+              {cargandoChat ? (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem 0' }}>
+                  <div style={{ textAlign: 'center' }}>
+                    <Loader size={48} color="#70EAF0" style={{ animation: 'spin 1s linear infinite', marginBottom: '1rem' }} />
+                    <p style={{ color: '#67BACD', fontWeight: '600' }}>Procesando análisis...</p>
+                  </div>
+                </div>
+              ) : respuestaIA ? (
+                <div style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '1.5rem',
+                  padding: '2rem',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+                  border: '2px solid rgba(112, 234, 240, 0.2)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1.5rem' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      background: 'linear-gradient(135deg, #9D4EDD 0%, #67BACD 100%)',
+                      borderRadius: '1rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      boxShadow: '0 8px 20px rgba(157, 78, 221, 0.3)'
+                    }}>
+                      <Sparkles size={24} color="white" />
+                    </div>
+                    <div>
+                      <h4 style={{ fontWeight: 'bold', color: '#000000', marginBottom: '0.5rem', fontSize: '1.125rem' }}>Análisis Completado</h4>
+                      <p style={{ fontSize: '0.875rem', color: '#67BACD', margin: 0 }}>
+                        Resultado del análisis de {analisisSeleccionado}
+                      </p>
+                    </div>
+                  </div>
+                  <div style={{
+                    backgroundColor: 'rgba(112, 234, 240, 0.08)',
+                    padding: '1.5rem',
+                    borderRadius: '1rem',
+                    fontSize: '0.875rem',
+                    overflowX: 'auto',
+                    border: '2px solid rgba(112, 234, 240, 0.2)'
+                  }}>
+                    <pre style={{ whiteSpace: 'pre-wrap', color: '#276A7C', margin: 0, fontFamily: 'monospace' }}>
+                      {JSON.stringify(respuestaIA, null, 2)}
+                    </pre>
+                  </div>
+                </div>
               ) : (
-                <p>{msg.data?.mensaje || 'Procesando...'}</p>
+                <div style={{ textAlign: 'center', padding: '3rem 0' }}>
+                  <div style={{
+                    width: '96px',
+                    height: '96px',
+                    background: 'linear-gradient(135deg, #9D4EDD 0%, #67BACD 100%)',
+                    borderRadius: '2rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 1.5rem',
+                    boxShadow: '0 15px 40px rgba(157, 78, 221, 0.3)'
+                  }}>
+                    <MessageSquare size={48} color="white" />
+                  </div>
+                  <h4 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#000000', marginBottom: '0.75rem' }}>
+                    ¿En qué puedo ayudarte?
+                  </h4>
+                  <p style={{ color: '#67BACD', fontSize: '1rem' }}>
+                    Escribe tu consulta o selecciona un análisis rápido
+                  </p>
+                </div>
               )}
+
+              {historiaMensajes.map((msg, index) => (
+                <div
+                  key={index}
+                  style={{
+                    display: 'flex',
+                    justifyContent: msg.tipo === 'usuario' ? 'flex-end' : 'flex-start',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  <div
+                    style={{
+                      maxWidth: '80%',
+                      borderRadius: '1.5rem',
+                      padding: '1.25rem 1.5rem',
+                      backgroundColor: msg.tipo === 'usuario' ? undefined : '#FFFFFF',
+                      background: msg.tipo === 'usuario' ? 'linear-gradient(135deg, #276A7C 0%, #70EAF0 100%)' : undefined,
+                      color: msg.tipo === 'usuario' ? 'white' : '#000000',
+                      border: msg.tipo === 'usuario' ? 'none' : '2px solid rgba(112, 234, 240, 0.2)',
+                      boxShadow: msg.tipo === 'usuario' ? '0 8px 20px rgba(39, 106, 124, 0.3)' : '0 4px 15px rgba(0, 0, 0, 0.05)'
+                    }}
+                  >
+                    <p style={{ margin: 0, lineHeight: '1.5' }}>
+                      {msg.tipo === 'usuario' ? msg.texto : (msg.data?.mensaje || 'Procesando...')}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Chat Input */}
+            <div style={{
+              padding: '2rem',
+              backgroundColor: '#FFFFFF',
+              borderTop: '2px solid rgba(112, 234, 240, 0.2)'
+            }}>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <input
+                  type="text"
+                  value={mensajeChat}
+                  onChange={(e) => setMensajeChat(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Escribe tu consulta aquí..."
+                  style={{
+                    flex: 1,
+                    padding: '1rem 1.5rem',
+                    backgroundColor: 'rgba(112, 234, 240, 0.08)',
+                    border: '2px solid rgba(112, 234, 240, 0.2)',
+                    borderRadius: '1.25rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    transition: 'all 0.3s',
+                    color: '#000000'
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = '#70EAF0';
+                    e.currentTarget.style.backgroundColor = 'rgba(112, 234, 240, 0.12)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(112, 234, 240, 0.2)';
+                    e.currentTarget.style.backgroundColor = 'rgba(112, 234, 240, 0.08)';
+                  }}
+                />
+                <button
+                  onClick={enviarMensajeChat}
+                  style={{
+                    padding: '1rem 2rem',
+                    background: 'linear-gradient(135deg, #9D4EDD 0%, #67BACD 100%)',
+                    color: 'white',
+                    borderRadius: '1.25rem',
+                    fontWeight: 'bold',
+                    boxShadow: '0 8px 25px rgba(157, 78, 221, 0.3)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    transition: 'all 0.3s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 12px 30px rgba(157, 78, 221, 0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(157, 78, 221, 0.3)';
+                  }}
+                >
+                  <Send size={20} />
+                  Enviar
+                </button>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Chat Input */}
-      <div className="p-6 bg-white border-t border-slate-200">
-        <div className="flex gap-3">
-          <input
-            type="text"
-            value={mensajeChat}
-            onChange={(e) => setMensajeChat(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Escribe tu consulta aquí..."
-            className="flex-1 px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-          />
-          <button
-            onClick={enviarMensajeChat}
-            className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all flex items-center gap-2"
-          >
-            <Send className="w-5 h-5" />
-            Enviar
-          </button>
         </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
+
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
     </div>
   );
 };

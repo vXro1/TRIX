@@ -11,7 +11,48 @@
 /* =========================
    VARIABLES GLOBALES
    ========================= */
+:root {
+  /* Fondo y UI */
+  --color-primary: #FFFFFF;
+  --color-secondary: #276A7C;
+  --color-accent: #67BACD;
+  --color-highlight: #70EAF0;
+  --color-tertiary: #5EACBB;
 
+  /* Texto */
+  --color-black: #000000;
+  --color-gray-dark: #333333;
+  --color-gray-light: rgba(245, 245, 245, 0.9);
+  --color-gray-medium: #C0C0C0;
+  --color-white: #FFFFFF;
+
+  /* Alertas y notificaciones */
+  --color-error: rgba(255, 107, 107, 0.9);
+  --color-warning: rgba(255, 209, 102, 0.9);
+  --color-success: rgba(6, 214, 160, 0.9);
+  --color-info: rgba(17, 138, 178, 0.9);
+  --color-notice: rgba(142, 202, 230, 0.9);
+
+  /* Estadísticas / gráficas */
+  --color-chart-blue: #276A7C;
+  --color-chart-turquoise: #67BACD;
+  --color-chart-cyan: #70EAF0;
+  --color-chart-teal: #5EACBB;
+  --color-chart-yellow: #FFD166;
+  --color-chart-red: #FF6B6B;
+  --color-chart-green: #06D6A0;
+  --color-chart-purple: #9D4EDD;
+
+  /* Glow y animaciones */
+  --color-glow: #70EAF0;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 15px 35px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(112, 234, 240, 0.4);
+}
 
 /* =========================
    RESET Y BASE
